@@ -1,0 +1,288 @@
+//
+//  ViewController.m
+//  B-TechStudies
+//
+//  Created by MAC on 20/01/14.
+//  Copyright (c) 2014 MAC. All rights reserved.
+//
+
+#import "ViewController.h"
+
+@interface ViewController ()
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.tableView.delegate=self;
+    self.tableView.dataSource=self;
+    self.tableView.scrollEnabled=NO;
+   
+    
+	// Do any additional setup after loading the view, typically from a nib.
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    cell.backgroundColor=[UIColor clearColor];
+    
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    //#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 9;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"details";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
+    
+    if (indexPath.row == 0) {
+        self.nameTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.nameTF.delegate=self;
+        self.nameTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.nameTF.backgroundColor=[UIColor grayColor];
+        [cell addSubview:self.nameTF];
+        cell.textLabel.text=@"Name:";
+
+    }
+    if (indexPath.row == 1) {
+        self.emailTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.emailTF.delegate=self;
+        self.emailTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.emailTF.backgroundColor=[UIColor grayColor];
+        [cell addSubview:self.emailTF];
+        cell.textLabel.text=@"Email-id:";
+        
+    }
+    if (indexPath.row == 2) {
+        self.passwordTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.passwordTF.delegate=self;
+        self.passwordTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.passwordTF.backgroundColor=[UIColor grayColor];
+        [cell addSubview:self.passwordTF];
+        cell.textLabel.text=@"Password:";
+        
+    }
+    if (indexPath.row == 3) {
+        self.adminNumderTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.adminNumderTF.delegate=self;
+        self.adminNumderTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.adminNumderTF.backgroundColor=[UIColor grayColor];
+        [cell addSubview:self.adminNumderTF];
+        cell.textLabel.text=@"AdmissionNumber:";
+        
+    }
+    if (indexPath.row == 4) {
+        self.countryTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.countryTF.delegate=self;
+        [self.countryTF setUserInteractionEnabled:NO];
+        self.countryTF.borderStyle=UITextBorderStyleRoundedRect;
+         self.countryTF.backgroundColor=[UIColor grayColor];
+        
+        
+        UIButton *cityButton=[[UIButton alloc]initWithFrame:CGRectMake(570,15, 30, 30)];
+        [cityButton addTarget:self
+                       action:@selector(cityPicker) forControlEvents:UIControlEventTouchDown];
+        [cityButton setImage:[UIImage imageNamed:@"but.png"] forState:UIControlStateNormal];
+        [cell addSubview:self.countryTF];
+        [cell addSubview:cityButton];
+        cell.textLabel.text=@"Country:";
+        
+    }
+    if (indexPath.row == 5) {
+        self.stateTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.stateTF.delegate=self;
+        self.stateTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.stateTF.backgroundColor=[UIColor grayColor];
+        UIButton *statebutton=[[UIButton alloc]initWithFrame:CGRectMake(570,15, 30, 30)];
+        [statebutton addTarget:self
+                       action:@selector(statePicker) forControlEvents:UIControlEventTouchDown];
+        [statebutton setImage:[UIImage imageNamed:@"but.png"] forState:UIControlStateNormal];
+         [cell addSubview:self.stateTF];
+        [cell addSubview:statebutton];
+        cell.textLabel.text=@"State:";
+        
+    }
+     if (indexPath.row == 6) {
+        self.syllabusTF=[[UITextField alloc]initWithFrame:CGRectMake(400, 10, 200, 40)];
+        self.syllabusTF.delegate=self;
+        self.syllabusTF.borderStyle=UITextBorderStyleRoundedRect;
+        self.syllabusTF.backgroundColor=[UIColor grayColor];
+         UIButton *syllabusButton=[[UIButton alloc]initWithFrame:CGRectMake(570,15, 30, 30)];
+         [syllabusButton addTarget:self
+                         action:@selector(syllabusPicker) forControlEvents:UIControlEventTouchDown];
+         [syllabusButton setImage:[UIImage imageNamed:@"but.png"] forState:UIControlStateNormal];
+        [cell addSubview:self.syllabusTF];
+         [cell addSubview:syllabusButton];
+         cell.textLabel.text=@"Syllabus:";
+        
+    }
+    if (indexPath.row == 7) {
+                cell.textLabel.text=@"Photo:";
+        
+    }
+    if (indexPath.row == 8) {
+        UIButton *statebutton=[[UIButton alloc]initWithFrame:CGRectMake(200,15, 300, 30)];
+        [statebutton addTarget:self
+                        action:@selector(logInView) forControlEvents:UIControlEventTouchDown];
+         [statebutton setTitle:@"Already account click here" forState:UIControlStateNormal];
+        statebutton.backgroundColor = [UIColor grayColor];
+        //[statebutton setImage:[UIImage imageNamed:@"but.png"] forState:UIControlStateNormal];
+
+        [cell addSubview:statebutton];
+     }
+
+    return cell;
+    
+}
+-(void)logInView{
+    LoginViewController *logInviewController=[[LoginViewController alloc]init];
+    
+    [self.navigationController pushViewController:logInviewController animated:YES];
+    
+    
+    
+}
+-(void)cityPicker{
+     picker=[[UIPickerView alloc]initWithFrame:CGRectMake(350, 430, 320, 320)];
+    [picker setBackgroundColor:[UIColor blueColor]];
+   UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]
+                                  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                  target:nil action:nil];
+    UIBarButtonItem *customItem1 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered
+                                    target:self action:@selector(toolBarItem1:)];
+    UIBarButtonItem *customItem2 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Done" style:UIBarButtonItemStyleDone
+                                    target:self action:@selector(toolBarItem2:)];
+    NSArray *toolbarItems = [NSArray arrayWithObjects:
+                             customItem1,spaceItem, customItem2, nil];
+    toolbar = [[UIToolbar alloc]initWithFrame:
+               CGRectMake(350, 380, 320, 50)];
+    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+    [self.view addSubview:toolbar];
+    [toolbar setItems:toolbarItems];
+    [self.view addSubview:picker];
+    picker.delegate=self;
+    picker.dataSource=self;
+}
+-(void)statePicker{
+    picker=[[UIPickerView alloc]initWithFrame:CGRectMake(350, 490, 320, 320)];
+    [picker setBackgroundColor:[UIColor blueColor]];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]
+                                  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                  target:nil action:nil];
+    UIBarButtonItem *customItem1 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered
+                                    target:self action:@selector(toolBarItem1:)];
+    UIBarButtonItem *customItem2 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Done" style:UIBarButtonItemStyleDone
+                                    target:self action:@selector(toolBarItem2:)];
+    NSArray *toolbarItems = [NSArray arrayWithObjects:
+                             customItem1,spaceItem, customItem2, nil];
+    toolbar = [[UIToolbar alloc]initWithFrame:
+               CGRectMake(350, 440, 320, 50)];
+    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+    [self.view addSubview:toolbar];
+    [toolbar setItems:toolbarItems];
+    [self.view addSubview:picker];
+    picker.delegate=self;
+    picker.dataSource=self;
+}
+-(void)syllabusPicker{
+    picker=[[UIPickerView alloc]initWithFrame:CGRectMake(350, 540, 320, 320)];
+    [picker setBackgroundColor:[UIColor blueColor]];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc]
+                                  initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                  target:nil action:nil];
+    UIBarButtonItem *customItem1 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered
+                                    target:self action:@selector(toolBarItem1:)];
+    UIBarButtonItem *customItem2 = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Done" style:UIBarButtonItemStyleDone
+                                    target:self action:@selector(toolBarItem2:)];
+    NSArray *toolbarItems = [NSArray arrayWithObjects:
+                             customItem1,spaceItem, customItem2, nil];
+    toolbar = [[UIToolbar alloc]initWithFrame:
+               CGRectMake(350, 500, 320, 50)];
+    [toolbar setBarStyle:UIBarStyleBlackOpaque];
+    [self.view addSubview:toolbar];
+    [toolbar setItems:toolbarItems];
+    [self.view addSubview:picker];
+    picker.delegate=self;
+    picker.dataSource=self;
+}
+
+-(IBAction)toolBarItem1:(id)sender{
+    [picker removeFromSuperview];
+    [toolbar removeFromSuperview];
+}
+-(IBAction)toolBarItem2:(id)sender{
+     [toolbar removeFromSuperview];
+    [picker removeFromSuperview];
+}
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
+{
+    
+    return 5;
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
+{
+    
+    NSArray *cities=[[NSArray alloc]initWithObjects:@"India",@"USA",@"UK",@"Swiss",@"Bangkok",nil];
+    
+    return [cities objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+  
+    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)submit:(id)sender {
+}
+
+- (IBAction)cancel:(id)sender {
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if((textField==_adminNumderTF)||(textField==_nameTF)||(textField==_emailTF)||(textField==_passwordTF))
+        [textField resignFirstResponder];
+    return YES;
+}
+@end
